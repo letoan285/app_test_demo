@@ -47470,7 +47470,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         matchTheText: function matchTheText() {
-            alert('Hello toan');
+            console.log(this.text, this.sub_text);
         }
     }
 });

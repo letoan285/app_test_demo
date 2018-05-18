@@ -57,7 +57,7 @@
         },
          methods: {
             matchTheText(){
-                alert('Hello toan')
+                console.log(this.text, this.sub_text);
             }
 
         }
