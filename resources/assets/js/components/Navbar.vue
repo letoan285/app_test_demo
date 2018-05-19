@@ -8,7 +8,7 @@
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
+                <a class="nav-link" href="#" title="This is the rules of app">Rules</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Contact</a>
@@ -22,8 +22,13 @@
 
 <script>
     export default {
-        mounted() {
-            console.log('Component mounted.')
+        data() {
+            return {
+              title: 'this is title for test'
+            }
+        },
+        methods: {
+
         }
     }
 </script>
