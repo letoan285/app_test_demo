@@ -47910,6 +47910,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -47921,7 +47927,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             result: '',
             text_result: '',
             sub_text_result: '',
-            index: ''
+            index: '',
+            case_sensitive: 0
         };
     },
     created: function created() {
@@ -47930,26 +47937,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         matchTheText: function matchTheText() {
-            var x = this.text;
-            var y = this.sub_text;
-            if (x == '' || y == '') {
-                alert('Please enter Text and Sub text');
+            var subText = this.sub_text;
+            var text = this.text;
+            var l = subText.length;
+            var case_sensitive = this.case_sensitive;
+            if (case_sensitive == 0) {
+                case_sensitive = false;
             } else {
-                var str = this.text;
-                var _x = this.sub_text;
-                var n = str.indexOf(_x);
-                this.text_result = str;
-                this.sub_text_result = _x;
-
-                this.text = '';
-                this.sub_text = '';
-                if (n == -1) {
-                    this.index = 'There is no matching positions';
-                } else {
-                    this.index = n + 1;
-                }
-                console.log(n);
+                case_sensitive = true;
             }
+            console.log(case_sensitive);
+            if (l == 0) {
+                return [];
+            }
+            var start = 0;
+            var index = void 0;
+            var indices = [];
+
+            if (!case_sensitive) {
+                text = text.toLowerCase();
+                subText = subText.toLowerCase();
+            }
+
+            while ((index = text.indexOf(subText, start)) > -1) {
+                indices.push(index);
+                start = index + l;
+            }
+            indices = indices.join(',');
+            this.result = indices;
+
+            this.text_result = text;
+            this.sub_text_result = subText;
         }
     }
 });
@@ -48047,7 +48065,49 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "col-5" })
+              _c("div", { staticClass: "col-2" }),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-3" }, [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.case_sensitive,
+                        expression: "case_sensitive"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { id: "" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.case_sensitive = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "0" } }, [
+                      _vm._v("Case-insensitive")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "1" } }, [
+                      _vm._v("Case-sensitive")
+                    ])
+                  ]
+                )
+              ])
             ]),
             _c("hr"),
             _vm._v(" "),
@@ -48073,7 +48133,7 @@ var render = function() {
                 _vm._v("The matching positions: ")
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "col-8" }, [_vm._v(_vm._s(_vm.index))])
+              _c("div", { staticClass: "col-8" }, [_vm._v(_vm._s(_vm.result))])
             ])
           ])
         ])

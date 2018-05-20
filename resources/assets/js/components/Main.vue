@@ -25,7 +25,13 @@
                                 
                                 <button class="btn btn-primary" @click="matchTheText">Click to get the result</button>
                             </div>
-                            <div class="col-5"></div>
+                            <div class="col-2"></div>
+                            <div class="col-3">
+                                <select class="form-control" id="" v-model="case_sensitive">
+                                    <option value="0">Case-insensitive</option>
+                                    <option value="1">Case-sensitive</option>
+                                </select>
+                            </div>
                         </div><hr>
 
                         <div class="row">
@@ -40,7 +46,7 @@
 
                         <div class="row">
                             <div class="col-4">The matching positions: </div>
-                            <div class="col-8">{{ index }}</div>
+                            <div class="col-8">{{ result }}</div>
                         </div>
                     </div>
                 </div>
@@ -60,7 +66,8 @@
                 result: '',
                 text_result: '',
                 sub_text_result: '',
-                index: ''
+                index: '',
+                case_sensitive: 0
             }
         },
         created(){
@@ -68,31 +75,41 @@
         },
          methods: {
             matchTheText(){
-                let x = this.text 
-                let y = this.sub_text
-                if(x == '' || y == ''){
-                    alert('Please enter Text and Sub text')
+                let subText = this.sub_text
+                let text = this.text
+                let l = subText.length;
+                let case_sensitive = this.case_sensitive
+                if(case_sensitive == 0){
+                    case_sensitive = false
                 } else {
-                    let str = this.text;
-                    let x = this.sub_text;
-                    let n = str.indexOf(x);
-                    this.text_result = str
-                    this.sub_text_result = x
-                    
-                    this.text = ''
-                    this.sub_text = ''
-                    if(n == -1){
-                        this.index = 'There is no matching positions'
-                    }else {
-                        this.index = n+1
-                    }
-                    console.log(n);
+                    case_sensitive = true
                 }
+                console.log(case_sensitive);
+                if (l == 0) {
+                    return [];
+                }
+                let start = 0;
+                let index;
+                let indices = [];
+
+                if (!case_sensitive) {
+                    text = text.toLowerCase();
+                    subText = subText.toLowerCase();
+                }
+
+                while ((index = text.indexOf(subText, start)) > -1) {
+                    indices.push(index);
+                    start = index + l;
+                }
+                indices = indices.join(',');
+                this.result = indices;
+
+                this.text_result = text 
+                this.sub_text_result = subText
+
+
             },
-            // resetText(){
-            //     this.text = ''
-            //     this.sub_text = ''
-            // }
+
 
         }
     }
