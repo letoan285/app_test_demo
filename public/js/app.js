@@ -47939,6 +47939,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         matchTheText: function matchTheText() {
             var subText = this.sub_text;
             var text = this.text;
+            if (subText == '' || text == '') {
+                alert('Please enter Text and Sub Text');
+            }
             var l = subText.length;
             var case_sensitive = this.case_sensitive;
             if (case_sensitive == 0) {
@@ -47963,8 +47966,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 indices.push(index);
                 start = index + l;
             }
-            indices = indices.join(',');
-            this.result = indices;
+            indices = indices.join(' , ');
+            if (indices) {
+                this.result = indices;
+            } else {
+                this.result = "There is no matching points";
+            }
 
             this.text_result = text;
             this.sub_text_result = subText;
