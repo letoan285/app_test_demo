@@ -5,6 +5,7 @@
 # clone and run app instruction
 1. clone or download project
 2. create your onw .ENV file
-3. composer install
-4. npm install && npm run watch
-5. php artisan serve to start at localhost, post 8000 by default
+3. php artisan key:generate
+4. composer install
+5. npm install && npm run watch
+6. php artisan serve to start at localhost, post 8000 by default
