@@ -23,7 +23,7 @@
                             <div class="col-5"></div>
                             <div class="col-2">
                                 
-                                <button class="btn btn-primary" @click="matchTheText">Click to get the result</button>
+                                <button class="btn btn-primary" @click="getTheSearchResult">Click to get the result</button>
                             </div>
                             <div class="col-2"></div>
                             <div class="col-3">
@@ -56,6 +56,7 @@
 </template>
 
 <script>
+    import Axios from 'axios'
     export default {
         data() {
             return {
@@ -74,6 +75,11 @@
             // this.disabledBtn()
         },
          methods: {
+            getTheSearchResult(){
+                Axios.post(`/api/games/get-search-result`).then(response => {
+
+                });
+            },
             matchTheText(){
                 let subText = this.sub_text
                 let text = this.text

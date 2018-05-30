@@ -11,12 +11,14 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::post('/games/get-result', 'GamesController@getResult')->name('games.getResult');
 
 
-Route::get('/{vue_capture?}', function () {
-    return view('index');
-})->where('vue_capture', '[\/\w\.-]*');
+// Route::get('/{vue_capture?}', function () {
+//     return view('index');
+// })->where('vue_capture', '[\/\w\.-]*');
 

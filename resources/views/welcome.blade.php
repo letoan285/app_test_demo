@@ -9,87 +9,91 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
+        <div>
+            <header>
+              <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                  <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav mr-auto">
+                      <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#" title="This is the rules of app">Rules</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-            @endif
+              </nav>
+            </header>
 
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="card card-default">
+                            <div class="card-header">Welcome to my app</div>
+                            <div class="card-body">
+                                <h4>Please enter the input to have fun !</h4><hr>
+                                <form action="{{ route('games.getResult') }}" method="POST">
+                                    {{ csrf_field()}}
+                                    <div class="row">
+                                        <div class="col-5"><strong>Enter Text</strong></div>
+                                        <div class="col-7">
+                                            <input name="text" type="text" class="form-control" placeholder="Type your Text ...">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-5"><strong class="demo">Enter Sub Text</strong></div>
+                                        <div class="col-7 mt-2">
+                                            <input type="text" class="form-control" placeholder="Type your sub-text ..." name="sub_text">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-5"></div>
+                                        <div class="col-2">
+                                            <button class="btn btn-primary" type="submit">Click to get the result</button>
+                                        </div>
+                                        <div class="col-2"></div>
+                                        <div class="col-3">
+                                            <select class="form-control" id="" name="case_sensitive">
+                                                <option value="0">Case-insensitive</option>
+                                                <option value="1">Case-sensitive</option>
+                                            </select>
+                                        </div>
+                                    </div><hr>
+                                </form>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                                <div class="row">
+                                    <div class="col-4"><p>The text: </p></div>
+                                    <div class="col-8 text-danger">the result</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-4">The sub - text: </div>
+                                    <div class="col-8 text-success"></div>
+                                </div><br>
+
+                                <div class="row">
+                                    <div class="col-4">The matching positions: </div>
+                                    <div class="col-8">the result</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
         </div>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </body>
 </html>
